@@ -1,4 +1,5 @@
 const grid = document.querySelector(".grid")
+const timeIntervalSlider = document.querySelector("#timeInterval")
 const startButton = document.querySelector("#start")
 const resetButton = document.querySelector("#reset")
 const examplesButton = document.querySelector("#examples")
@@ -8,6 +9,8 @@ const totalCells = width * height
 const generationLabel = document.querySelector("#generation")
 let generation = 0
 let intervalId;
+let timeInterval = parseInt(timeIntervalSlider.value)
+
 
 function populateGrid() {
 
@@ -43,7 +46,7 @@ function pauseGame() {
     switch (startButton.innerHTML) {
         case "Start":
             startButton.innerHTML = "Pause"
-            intervalId = setInterval(executeGeneration, 500)
+            intervalId = setInterval(executeGeneration, timeInterval)
             break
         case "Pause":
             startButton.innerHTML = "Start"
@@ -51,6 +54,12 @@ function pauseGame() {
             break
     }
     return intervalId
+}
+
+timeIntervalSlider.oninput = () => {
+    timeInterval = parseInt(timeIntervalSlider.value)
+    clearInterval(intervalId)
+    intervalId = setInterval(executeGeneration, timeInterval)
 }
 
 function addExamplePatterns() {
