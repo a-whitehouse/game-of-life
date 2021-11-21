@@ -1,10 +1,13 @@
 const grid = document.querySelector(".grid")
+const startButton = document.querySelector("#start")
+const resetButton = document.querySelector("#reset")
+const examplesButton = document.querySelector("#examples")
 const width = 100
 const height = 100
 const totalCells = width * height
 const generationLabel = document.querySelector("#generation")
 let generation = 0
-
+let intervalId;
 
 function populateGrid() {
 
@@ -12,6 +15,7 @@ function populateGrid() {
         var cell = document.createElement("div")
         cell.setAttribute("id", i)
         cell.classList.add("cell", "dead")
+        cell.addEventListener("click", switchClickedCellState)
         grid.appendChild(cell)
     }
 }
@@ -19,36 +23,73 @@ function populateGrid() {
 populateGrid()
 const cells = document.querySelectorAll(".cell")
 
-// Glider
-switchCellState(cells[101])
-switchCellState(cells[202])
-switchCellState(cells[203])
-switchCellState(cells[301])
-switchCellState(cells[302])
+startButton.addEventListener("click", pauseGame)
+resetButton.addEventListener("click", resetGrid)
+examplesButton.addEventListener("click", addExamplePatterns)
+
+function resetGrid() {
+    clearInterval(intervalId)
+    startButton.innerHTML = "Start"
+    generation = 0
+    updateGenerationLabel()
+
+    for (let i = 0; i < totalCells; i++) {
+        var cell = cells[i]
+        cell.classList = "cell dead"
+    }
+}
+
+function pauseGame() {
+    switch (startButton.innerHTML) {
+        case "Start":
+            startButton.innerHTML = "Pause"
+            intervalId = setInterval(executeGeneration, 500)
+            break
+        case "Pause":
+            startButton.innerHTML = "Start"
+            clearInterval(intervalId)
+            break
+    }
+    return intervalId
+}
+
+function addExamplePatterns() {
+    // Glider
+    switchCellState(cells[101])
+    switchCellState(cells[202])
+    switchCellState(cells[203])
+    switchCellState(cells[301])
+    switchCellState(cells[302])
 
 
-// Blinker
-switchCellState(cells[444])
-switchCellState(cells[445])
-switchCellState(cells[446])
+    // Blinker
+    switchCellState(cells[444])
+    switchCellState(cells[445])
+    switchCellState(cells[446])
 
-// Toad
-switchCellState(cells[1444])
-switchCellState(cells[1445])
-switchCellState(cells[1446])
-switchCellState(cells[1543])
-switchCellState(cells[1544])
-switchCellState(cells[1545])
+    // Toad
+    switchCellState(cells[1444])
+    switchCellState(cells[1445])
+    switchCellState(cells[1446])
+    switchCellState(cells[1543])
+    switchCellState(cells[1544])
+    switchCellState(cells[1545])
 
-// Beacon
-switchCellState(cells[464])
-switchCellState(cells[465])
-switchCellState(cells[564])
-switchCellState(cells[565])
-switchCellState(cells[666])
-switchCellState(cells[667])
-switchCellState(cells[766])
-switchCellState(cells[767])
+    // Beacon
+    switchCellState(cells[464])
+    switchCellState(cells[465])
+    switchCellState(cells[564])
+    switchCellState(cells[565])
+    switchCellState(cells[666])
+    switchCellState(cells[667])
+    switchCellState(cells[766])
+    switchCellState(cells[767])
+}
+
+function switchClickedCellState(event) {
+    let cell = event.currentTarget
+    switchCellState(cell)
+}
 
 
 function switchCellState(cell) {
@@ -73,6 +114,10 @@ function executeGeneration() {
     }
 
     generation++
+    updateGenerationLabel()
+}
+
+function updateGenerationLabel() {
     generationLabel.innerHTML = "Generation " + generation
 }
 
@@ -150,6 +195,4 @@ function completeTransition(cell) {
         cell.classList.remove("reviving")
     }
 }
-
-setInterval(executeGeneration, 500)
 
