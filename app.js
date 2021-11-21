@@ -20,17 +20,14 @@ populateGrid()
 const cells = document.querySelectorAll(".cell")
 
 for (let i = 44; i < 47; i++) {
-    cells[i].classList.add("alive")
     cells[i].classList.remove("dead")
 }
 
 function switchCellState(cell) {
-    if (cell.classList.contains("alive")) {
-        cell.classList.remove("alive")
-        cell.classList.add("dead")
-    } else {
-        cell.classList.add("alive")
+    if (cell.classList.contains("dead")) {
         cell.classList.remove("dead")
+    } else {
+        cell.classList.add("dead")
     }
 }
 
@@ -59,7 +56,7 @@ function countLivingNeighbours(cell) {
 
         var neighbourCell = cells[neighbourIds[i]]
 
-        if (neighbourCell.classList.contains("alive")) {
+        if (!neighbourCell.classList.contains("dead")) {
             livingNeighbours++
         }
     }
@@ -97,11 +94,11 @@ function getNeighbourIds(cell) {
 
 
 function addFutureState(cell, livingNeighbours) {
-    if (cell.classList.contains("alive") && livingNeighbours < 2) {
+    if (!cell.classList.contains("dead") && livingNeighbours < 2) {
         // Will die from underpopulation
         cell.classList.add("dying")
     }
-    if (cell.classList.contains("alive") && livingNeighbours > 3) {
+    if (!cell.classList.contains("dead") && livingNeighbours > 3) {
         // Will die from overpopulation
         cell.classList.add("dying")
     }
@@ -117,13 +114,11 @@ function addFutureState(cell, livingNeighbours) {
 
 function completeTransition(cell) {
     if (cell.classList.contains("dying")) {
-        cell.classList.remove("alive")
         cell.classList.add("dead")
         cell.classList.remove("dying")
     }
     else if (cell.classList.contains("reviving")) {
         cell.classList.remove("dead")
-        cell.classList.add("alive")
         cell.classList.remove("reviving")
     }
 }
