@@ -1,6 +1,6 @@
 const grid = document.querySelector(".grid")
-const width = 10
-const height = 10
+const width = 100
+const height = 100
 const totalCells = width * height
 const generationLabel = document.querySelector("#generation")
 let generation = 0
@@ -19,9 +19,37 @@ function populateGrid() {
 populateGrid()
 const cells = document.querySelectorAll(".cell")
 
-for (let i = 44; i < 47; i++) {
-    cells[i].classList.remove("dead")
-}
+// Glider
+switchCellState(cells[101])
+switchCellState(cells[202])
+switchCellState(cells[203])
+switchCellState(cells[301])
+switchCellState(cells[302])
+
+
+// Blinker
+switchCellState(cells[444])
+switchCellState(cells[445])
+switchCellState(cells[446])
+
+// Toad
+switchCellState(cells[1444])
+switchCellState(cells[1445])
+switchCellState(cells[1446])
+switchCellState(cells[1543])
+switchCellState(cells[1544])
+switchCellState(cells[1545])
+
+// Beacon
+switchCellState(cells[464])
+switchCellState(cells[465])
+switchCellState(cells[564])
+switchCellState(cells[565])
+switchCellState(cells[666])
+switchCellState(cells[667])
+switchCellState(cells[766])
+switchCellState(cells[767])
+
 
 function switchCellState(cell) {
     if (cell.classList.contains("dead")) {
@@ -123,5 +151,5 @@ function completeTransition(cell) {
     }
 }
 
-setInterval(executeGeneration, 1000)
+setInterval(executeGeneration, 500)
 

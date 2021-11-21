@@ -2,16 +2,17 @@
     height: 1000px;
     width: 1000px;
     border: 1px;
+    border-style: double;
     display: flex;
     flex-wrap: wrap;
 }
 
 .cell {
-    height: 100px;
-    width: 100px;
-    background-color: green;
+    height: 10px;
+    width: 10px;
+    background-color: black;
 }
 
 .dead {
-    background-color: brown;
+    background-color: white;
 }
