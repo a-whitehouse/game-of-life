@@ -1,0 +1,17 @@
+.grid {
+    height: 1000px;
+    width: 1000px;
+    border: 1px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cell {
+    height: 100px;
+    width: 100px;
+    background-color: green;
+}
+
+.dead {
+    background-color: brown;
+}
