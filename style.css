@@ -16,3 +16,7 @@
 .dead {
     background-color: white;
 }
+
+.highlighted {
+    background-color: red;
+}

@@ -11,12 +11,17 @@
     <h1>Game of Life</h1>
     <h2 id="generation">Generation 0</h2>
     <div class="grid"></div>
+    <label for="shapes">Shapes</label>
+    <select name="shapes" id="shapes">
+        <option value="Blinker">Blinker</option>
+        <option value="Square">Square</option>
+        <option value="Gosper's Glider Gun">Gosper's Glider Gun</option>
+    </select>
     <div class="slidecontainer">
-        <input type="range" min="100" max="2000" value="1000" class="slider" id="timeInterval">
+        <input type="range" min="50" max="1000" value="500" class="slider" id="timeInterval">
     </div>
     <button id="start">Start</button>
     <button id="reset">Reset</button>
-    <button id="examples">Examples</button>
     <script src="app.js" charset="utf-8"></script>
 </body>
 
