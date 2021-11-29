@@ -19,6 +19,7 @@ function populateGrid() {
         cell.setAttribute("id", i)
         cell.classList.add("cell", "dead")
         cell.addEventListener("mouseover", highlightCells)
+        cell.addEventListener("mouseout", unhighlightCells)
         cell.addEventListener("click", switchHighlightedCells)
         grid.appendChild(cell)
     }
@@ -33,12 +34,6 @@ resetButton.addEventListener("click", resetGrid)
 var highlightedCells = []
 
 function highlightCells(event) {
-    // Unselect previously highlighed cells
-    for (let i = 0; i < highlightedCells.length; i++) {
-        cells[highlightedCells[i]].classList.remove("highlighted")
-    }
-    highlightedCells = []
-
     let shape = shapes[shapesMenu.value]
     let startingCellId = parseInt(event.currentTarget.getAttribute("id"))
 
@@ -50,6 +45,13 @@ function highlightCells(event) {
             highlightedCells.push(cellId)
         }
     }
+}
+
+function unhighlightCells() {
+    for (let i = 0; i < highlightedCells.length; i++) {
+        cells[highlightedCells[i]].classList.remove("highlighted")
+    }
+    highlightedCells = []
 }
 
 function switchHighlightedCells() {
