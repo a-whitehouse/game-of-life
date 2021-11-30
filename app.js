@@ -199,13 +199,24 @@ function completeTransition(cell) {
     }
 }
 
+
+function populateShapesMenu() {
+    for (var shapeName of Object.keys(shapes)) {
+        shapeOption = document.createElement("option")
+        shapeOption.setAttribute("value", shapeName)
+        shapeOption.innerHTML = shapeName
+        shapesMenu.appendChild(shapeOption)
+    }
+}
+
+
 function rotateIndex(index) {
     return (index % width) * width + Math.floor(index / width)
 }
 
 
 function rotateShapes() {
-    for (const [_, shapeIndices] of Object.entries(shapes)) {
+    for (const shapeIndices of Object.values(shapes)) {
         for (let i = 0; i < shapeIndices.length; i++) {
             shapeIndices[i] = rotateIndex(shapeIndices[i])
         }
@@ -214,8 +225,68 @@ function rotateShapes() {
 
 const shapes = {
     "Single Cell": [0],
+
+    // Still Lifes
+    "Block": [0, 1, width, width + 1],
+    "Bee-hive": [1, 2, width, width + 3, width * 2 + 1, width * 2 + 2],
+    "Loaf": [1, 2, width, width + 3, width * 2 + 1, width * 2 + 3, width * 3 + 2],
+    "Boat": [0, 1, width, width + 2, width * 2 + 1],
+    "Tub": [1, width, width + 2, width * 2 + 1],
+
+    // Oscillators
     "Blinker": [0, width, width * 2],
-    "Square": [0, 1, width, width + 1],
+    "Toad": [0, 1, 2, width + 1, width + 2, width + 3],
+    "Beacon": [0, 1, width, width + 1, width * 2 + 2, width * 2 + 3, width * 3 + 2, width * 3 + 3],
+    "Pulsar": [2, 3, 4, 8, 9, 10,
+        width * 2, width * 2 + 5, width * 2 + 7, width * 2 + 12,
+        width * 3, width * 3 + 5, width * 3 + 7, width * 3 + 12,
+        width * 4, width * 4 + 5, width * 4 + 7, width * 4 + 12,
+        width * 5 + 2, width * 5 + 3, width * 5 + 4, width * 5 + 8, width * 5 + 9, width * 5 + 10,
+        width * 7 + 2, width * 7 + 3, width * 7 + 4, width * 7 + 8, width * 7 + 9, width * 7 + 10,
+        width * 8, width * 8 + 5, width * 8 + 7, width * 8 + 12,
+        width * 9, width * 9 + 5, width * 9 + 7, width * 9 + 12,
+        width * 10, width * 10 + 5, width * 10 + 7, width * 10 + 12,
+        width * 12 + 2, width * 12 + 3, width * 12 + 4, width * 12 + 8, width * 12 + 9, width * 12 + 10,
+    ],
+    "Penta-decathlon": [
+        1,
+        width + 1,
+        width * 2,
+        width * 2 + 2, width * 3 + 1,
+        width * 4 + 1,
+        width * 5 + 1,
+        width * 6 + 1,
+        width * 7, width * 7 + 2,
+        width * 8 + 1, width * 9 + 1,
+    ],
+
+    // Spaceships
+    "Glider": [0, width + 1, width + 2, width * 2, width * 2 + 1],
+    "Lightweight Spaceship": [
+        2, 3,
+        width, width + 1, width + 3, width + 4,
+        width * 2, width * 2 + 1, width * 2 + 2, width * 2 + 3,
+        width * 3 + 1, width * 3 + 2,
+    ],
+    "Middleweight Spaceship": [
+        3, 4,
+        width, width + 1, width + 2, width + 4, width + 5,
+        width * 2, width * 2 + 1, width * 2 + 2, width * 2 + 3, width * 2 + 4,
+        width * 3 + 1, width * 3 + 2, width * 3 + 3,
+    ],
+    "Heavyweight Spaceship": [
+        4, 5,
+        width, width + 1, width + 2, width + 3, width + 5, width + 6,
+        width * 2, width * 2 + 1, width * 2 + 2, width * 2 + 3, width * 2 + 4, width * 2 + 5,
+        width * 3 + 1, width * 3 + 2, width * 3 + 3, width * 3 + 4,
+    ],
+
+    // Methuselahs
+    "R-pentomino": [1, 2, width, width + 1, width * 2 + 1],
+    "Diehard": [6, width, width + 1, width * 2 + 1, width * 2 + 5, width * 2 + 6, width * 2 + 7],
+    "Acorn": [1, width + 3, width * 2, width * 2 + 1, width * 2 + 4, width * 2 + 5, width * 2 + 6],
+
+    // Indefinite Growth
     "Gosper's Glider Gun": [
         25,
         width + 23,
@@ -256,3 +327,5 @@ const shapes = {
     ]
 
 }
+
+populateShapesMenu()
