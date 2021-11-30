@@ -40,9 +40,12 @@ function highlightCells(event) {
     let startingCellId = parseInt(event.currentTarget.getAttribute("id"))
 
     for (let i = 0; i < shape.length; i++) {
-        let cellId = startingCellId + parseInt(shape[i])
-        if (cellId < cells.length) {
-            let cell = cells[cellId]
+        var shapeId = parseInt(shape[i])
+        var cellId = startingCellId + parseInt(shape[i])
+
+        // Only use indices of shape that lie within grid
+        if ((shapeId % width + startingCellId % width < width) && (cellId < cells.length)) {
+            var cell = cells[cellId]
             cell.classList.add("highlighted")
             highlightedCells.push(cellId)
         }
@@ -58,7 +61,7 @@ function unhighlightCells() {
 
 function switchHighlightedCells() {
     for (let i = 0; i < highlightedCells.length; i++) {
-        let cell = cells[highlightedCells[i]]
+        var cell = cells[highlightedCells[i]]
         switchCellState(cell)
     }
 }

@@ -7,8 +7,7 @@ I briefly explored the Game of Life using Python in early 2020,
 but it's amazing how quickly you can build interactive apps using the web browser.
 
 ## TODO
-1. Allow saving of runs in database
-2. Allow addition of custom shapes to dropdown menu by user
-3. Add styling to make web page attractive
-4. Fix shape overlap at grid edge
-5. Refactor to follow JS best practices
+1. Refactor to follow JS best practices
+2. Add styling to make web page attractive
+3. Allow saving of runs in database
+4. Allow addition of custom shapes to dropdown menu by user
