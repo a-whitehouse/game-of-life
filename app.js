@@ -170,21 +170,38 @@ function getNeighbourIds(cell) {
 
 
 function addFutureState(cell, livingNeighbours) {
-    if (!cell.classList.contains("dead") && livingNeighbours < 2) {
-        // Will die from underpopulation
-        cell.classList.add("dying")
-    }
-    if (!cell.classList.contains("dead") && livingNeighbours > 3) {
-        // Will die from overpopulation
-        cell.classList.add("dying")
-    }
-    else if (cell.classList.contains("dead") && livingNeighbours === 3) {
-        // Will revive from reproduction
-        cell.classList.add("reviving")
+    if (!cell.classList.contains("dead")) {
+        // If cell alive
+        if (livingNeighbours < 2) {
+            // Will die from underpopulation
+            cell.classList.add("dying")
+        }
+        else if (livingNeighbours > 3) {
+            // Will die from overpopulation
+            cell.classList.add("dying")
+        }
+        else if (checkBorderCell(cell)) {
+            // Keep border empty
+            cell.classList.add("dying")
+        }
     }
     else {
-        // No change in state
+        // If cell dead
+        if (livingNeighbours === 3) {
+            // Will revive from reproduction
+            cell.classList.add("reviving")
+        }
     }
+}
+
+
+function checkBorderCell(cell) {
+    let cellId = cell.getAttribute("id")
+    return (
+        (cellId % width === 0) ||
+        (cellId % width === width - 1) ||
+        (cellId < width) ||
+        (cellId >= totalCells - width))
 }
 
 

@@ -10,5 +10,5 @@ but it's amazing how quickly you can build interactive apps using the web browse
 1. Allow saving of runs in database
 2. Allow addition of custom shapes to dropdown menu by user
 3. Add styling to make web page attractive
-4. Fix bugs at grid edge
+4. Fix shape overlap at grid edge
 5. Refactor to follow JS best practices
