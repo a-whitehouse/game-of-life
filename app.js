@@ -1,5 +1,6 @@
 const grid = document.querySelector(".grid")
 const shapesMenu = document.querySelector("#shapes")
+const rotateButton = document.querySelector("#rotate")
 const timeIntervalSlider = document.querySelector("#timeInterval")
 const startButton = document.querySelector("#start")
 const resetButton = document.querySelector("#reset")
@@ -28,6 +29,7 @@ function populateGrid() {
 populateGrid()
 const cells = document.querySelectorAll(".cell")
 
+rotateButton.addEventListener("click", rotateShapes)
 startButton.addEventListener("click", pauseGame)
 resetButton.addEventListener("click", resetGrid)
 
@@ -194,6 +196,19 @@ function completeTransition(cell) {
     else if (cell.classList.contains("reviving")) {
         cell.classList.remove("dead")
         cell.classList.remove("reviving")
+    }
+}
+
+function rotateIndex(index) {
+    return (index % width) * width + Math.floor(index / width)
+}
+
+
+function rotateShapes() {
+    for (const [_, shapeIndices] of Object.entries(shapes)) {
+        for (let i = 0; i < shapeIndices.length; i++) {
+            shapeIndices[i] = rotateIndex(shapeIndices[i])
+        }
     }
 }
 
